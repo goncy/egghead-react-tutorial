@@ -1,17 +1,57 @@
 import React from 'react';
-
-const Heart = () => <span className="glyphicon glyphicon-heart"></span>
-
-class Button extends React.Component {
-  render () {
-    return <button>{this.props.children}</button>;
-  }
-}
+import ReactDOM from 'react-dom';
 
 class App extends React.Component {
-  render () {
-    return <Button> I <Heart /> React</Button>
+  constructor() {
+    super();
+    this.state = {val: 0};
+    this.update = this.update.bind(this);
+  }
+
+  update () {
+    this.setState({val: this.state.val + 1});
+  }
+
+  componentWillMount() {
+    console.log("Mounting");
+  }
+
+  componentDidMount() {
+    console.log("Mounted");
+  }
+
+  componentWillUnmount() {
+      console.log("Bye!");
+  }
+
+  render() {
+    console.log("Rendering");
+    return (
+      <button onClick={this.update}>{this.state.val}</button>
+    );
   }
 }
 
-export default App;
+export default class Wrapper extends React.Component {
+  constructor () {
+    super();
+  }
+
+  mount () {
+    ReactDOM.render(<App />, document.getElementById('a'));
+  }
+
+  unmount () {
+    ReactDOM.unmountComponentAtNode(document.getElementById('a'));
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.mount.bind(this)}>Mount</button>
+        <button onClick={this.unmount.bind(this)}>Unmount</button>
+        <div id="a"></div>
+      </div>
+    );
+  }
+}
