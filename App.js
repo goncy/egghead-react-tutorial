@@ -1,9 +1,14 @@
 import React from 'react';
 
+// With State
 class App extends React.Component {
-    render() {
-      return <div>Hello</div>
-    }
+  render() {
+    return <h1>Hello World</h1>
+  }
 }
 
-export default App;
+// Stateless
+const App2 = () => <h1>Hello Eggheads</h1>
+
+// Tener default exporta solo una clase
+export {App, App2};
