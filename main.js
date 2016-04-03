@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Spectrum from './App';
+import App from './App';
 
 ReactDOM.render(
-  <Spectrum />,
+  <App />,
   document.getElementById('app')
 );
