@@ -13,45 +13,47 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    console.log("Mounting");
-  }
-
-  componentDidMount() {
-    console.log("Mounted");
+    this.setState({m: 2});
   }
 
   componentWillUnmount() {
-      console.log("Bye!");
+    clearInterval(this.inc);
   }
 
   render() {
     console.log("Rendering");
     return (
-      <button onClick={this.update}>{this.state.val}</button>
+      <button onClick={this.update}>{this.state.val * this.state.m}</button>
     );
+  }
+
+  componentDidMount() {
+    this.inc = setInterval(this.update, 500);
   }
 }
 
-export default class Wrapper extends React.Component {
+class Wrapper extends React.Component {
   constructor () {
     super();
   }
 
-  mount () {
+  static mount () {
     ReactDOM.render(<App />, document.getElementById('a'));
   }
 
-  unmount () {
+  static unmount () {
     ReactDOM.unmountComponentAtNode(document.getElementById('a'));
   }
 
   render() {
     return (
       <div>
-        <button onClick={this.mount.bind(this)}>Mount</button>
-        <button onClick={this.unmount.bind(this)}>Unmount</button>
+        <button onClick={Wrapper.mount.bind(this)}>Mount</button>
+        <button onClick={Wrapper.unmount.bind(this)}>Unmount</button>
         <div id="a"></div>
       </div>
     );
   }
 }
+
+export default Wrapper
